@@ -1,0 +1,47 @@
+services:
+  # سرویس اصلی n8n
+  - type: web
+    name: n8n
+    env: docker
+    plan: free # اگر اکانت پولی داری به starter تغییر بده
+    repo: https://github.com/n8n-io/n8n
+    branch: master # یا main
+    healthCheckPath: /healthz
+    envVars:
+      - key: N8N_PORT
+        value: 5678
+      - key: DB_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        fromDatabase:
+          name: n8n-db
+          property: host
+      - key: DB_POSTGRESDB_PORT
+        fromDatabase:
+          name: n8n-db
+          property: port
+      - key: DB_POSTGRESDB_DATABASE
+        fromDatabase:
+          name: n8n-db
+          property: database
+      - key: DB_POSTGRESDB_USER
+        fromDatabase:
+          name: n8n-db
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromDatabase:
+          name: n8n-db
+          property: password
+      - key: N8N_PROTOCOL
+        value: https
+      - key: WEBHOOK_URL
+        sync: false # این را بعداً دستی وارد می‌کنیم
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true # رندر خودش یک کلید امنیتی می‌سازد
+
+databases:
+  # دیتابیس برای ذخیره ورک‌فلوها
+  - name: n8n-db
+    plan: free # دیتابیس رایگان رندر (بعد از ۹۰ روز منقضی میشه، برای تست عالیه)
+    databaseName: n8n
+    user: n8n
