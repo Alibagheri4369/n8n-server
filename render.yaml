@@ -3,8 +3,7 @@ services:
   - type: web
     name: n8n
     env: docker
-    plan: free # اگر اکانت پولی داری به starter تغییر بده
-    repo: https://github.com/n8n-io/n8n
+    plan: free # اگر اکانت پولی داری به starter تغییر بد
     branch: master # یا main
     healthCheckPath: /healthz
     envVars:
@@ -44,4 +43,5 @@ databases:
   - name: n8n-db
     plan: free # دیتابیس رایگان رندر (بعد از ۹۰ روز منقضی میشه، برای تست عالیه)
     databaseName: n8n
+
     user: n8n
