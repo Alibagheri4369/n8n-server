@@ -3,6 +3,7 @@ services:
   - type: web
     name: n8n
     env: docker
+    image: n8nio/n8n:latest
     plan: free # اگر اکانت پولی داری به starter تغییر بد
     branch: master # یا main
     healthCheckPath: /healthz
@@ -45,3 +46,4 @@ databases:
     databaseName: n8n
 
     user: n8n
+
