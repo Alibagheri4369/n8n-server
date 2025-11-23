@@ -1,11 +1,9 @@
 services:
-  # سرویس اصلی n8n
   - type: web
-    name: n8n
+    name: n8n-service
     env: docker
     image: n8nio/n8n:latest
-    plan: free # اگر اکانت پولی داری به starter تغییر بد
-    branch: master # یا main
+    plan: free
     healthCheckPath: /healthz
     envVars:
       - key: N8N_PORT
@@ -35,15 +33,12 @@ services:
       - key: N8N_PROTOCOL
         value: https
       - key: WEBHOOK_URL
-        sync: false # این را بعداً دستی وارد می‌کنیم
+        value: https://temporary-webhook-url.com
       - key: N8N_ENCRYPTION_KEY
-        generateValue: true # رندر خودش یک کلید امنیتی می‌سازد
+        generateValue: true
 
 databases:
-  # دیتابیس برای ذخیره ورک‌فلوها
   - name: n8n-db
-    plan: free # دیتابیس رایگان رندر (بعد از ۹۰ روز منقضی میشه، برای تست عالیه)
+    plan: free
     databaseName: n8n
-
     user: n8n
-
